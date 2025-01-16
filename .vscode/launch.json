@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-FaceSecureApplication<secure>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.face.secure.FaceSecureApplication",
+            "projectName": "secure",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
