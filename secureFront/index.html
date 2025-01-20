@@ -30,7 +30,7 @@
         // Função chamada quando o botão "Detectar Face" é clicado
         detectBtn.addEventListener('click', function () {
             fetch("http://localhost:8080/faceCam", {
-                method: "POST",
+                method: "GET",
             })
                 .then(response => {
                     if (!response.ok) {

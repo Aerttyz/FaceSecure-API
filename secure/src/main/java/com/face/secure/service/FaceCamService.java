@@ -1,17 +1,21 @@
 package com.face.secure.service;
 
 
+import java.io.IOException;
+
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfRect;
 import org.opencv.imgproc.Imgproc;
 import org.opencv.objdetect.CascadeClassifier;
 import org.opencv.videoio.VideoCapture;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 
 @Service
 public class FaceCamService {
 
-    public boolean detectFaces() {
+    public boolean detectFaces() throws IOException {
         boolean faceDetected = false;
         
         VideoCapture capture = new VideoCapture(0);
@@ -20,7 +24,8 @@ public class FaceCamService {
             return false;
         }
 
-        CascadeClassifier faceDetector = new CascadeClassifier("src/main/resources/haarcascade_frontalface_default.xml");
+        Resource resource = new ClassPathResource("haarcascade_frontalface_default.xml");
+        CascadeClassifier faceDetector = new CascadeClassifier(resource.getFile().getAbsolutePath());
 
         Mat frame = new Mat();
 

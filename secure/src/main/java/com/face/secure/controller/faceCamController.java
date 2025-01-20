@@ -4,9 +4,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.face.secure.service.FaceCamService;
 
+import java.io.IOException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 
 
 @RestController
@@ -17,8 +19,8 @@ public class faceCamController {
     private FaceCamService faceCamService;
 
 
-    @PostMapping("/faceCam")
-    public String faceCam() {
+    @GetMapping("/faceCam")
+    public String faceCam() throws IOException {
         
         if(faceCamService.detectFaces()) {
             return "Face detected";
