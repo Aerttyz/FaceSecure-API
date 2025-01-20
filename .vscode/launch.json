@@ -2,10 +2,18 @@
     "configurations": [
         {
             "type": "java",
+            "name": "FaceRecognitionSystem",
+            "request": "launch",
+            "mainClass": "FaceRecognitionSystem",
+            "projectName": ""
+        },
+        {
+            "type": "java",
             "name": "Spring Boot-FaceSecureApplication<secure>",
             "request": "launch",
             "cwd": "${workspaceFolder}",
             "mainClass": "com.face.secure.FaceSecureApplication",
+            "vmArgs": "-Djava.library.path=${workspaceFolder}/native",
             "projectName": "secure",
             "args": "",
             "envFile": "${workspaceFolder}/.env"

@@ -1,0 +1,13 @@
+<video id="webcam" width="640" height="480" autoplay></video>
+<script>
+    const video = document.getElementById('webcam');
+
+    // Solicita permissão do usuário para acessar a webcam
+    navigator.mediaDevices.getUserMedia({ video: true })
+        .then((stream) => {
+            video.srcObject = stream;
+        })
+        .catch((err) => {
+            console.log("Erro ao acessar a webcam: " + err);
+        });
+</script>

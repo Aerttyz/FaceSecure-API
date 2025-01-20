@@ -8,6 +8,7 @@ class FaceSecureApplicationTests {
 
 	@Test
 	void contextLoads() {
+		System.err.println("Teste de contexto");
 	}
 
 }
