@@ -1,13 +1,54 @@
-<video id="webcam" width="640" height="480" autoplay></video>
-<script>
-    const video = document.getElementById('webcam');
+<!DOCTYPE html>
+<html lang="pt-BR">
 
-    // Solicita permissão do usuário para acessar a webcam
-    navigator.mediaDevices.getUserMedia({ video: true })
-        .then((stream) => {
-            video.srcObject = stream;
-        })
-        .catch((err) => {
-            console.log("Erro ao acessar a webcam: " + err);
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detecção de Faces</title>
+</head>
+
+<body>
+
+    <video id="webcam" width="640" height="480" autoplay></video>
+    <button id="detectBtn">Detectar Face</button>
+    <p id="result"></p> <!-- Para exibir o resultado -->
+
+    <script>
+        const video = document.getElementById('webcam');
+        const detectBtn = document.getElementById('detectBtn');
+        const result = document.getElementById('result');
+
+        // Solicita permissão do usuário para acessar a webcam
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then((stream) => {
+                video.srcObject = stream;
+            })
+            .catch((err) => {
+                console.log("Erro ao acessar a webcam: " + err);
+            });
+
+        // Função chamada quando o botão "Detectar Face" é clicado
+        detectBtn.addEventListener('click', function () {
+            fetch("http://localhost:8080/faceCam", {
+                method: "POST",
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Erro na requisição: ' + response.statusText);
+                    }
+                    return response.text();  // Retorna o corpo da resposta como texto
+                })
+                .then(data => {
+                    // Exibe o resultado da detecção de face
+                    result.textContent = data;  // "Face detected" ou "Face not detected"
+                })
+                .catch(error => {
+                    console.error("Erro ao detectar faces:", error);
+                    result.textContent = "Erro ao detectar faces.";
+                });
         });
-</script>
+    </script>
+
+</body>
+
+</html>
