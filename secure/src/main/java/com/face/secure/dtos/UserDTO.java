@@ -1,7 +1,5 @@
 package com.face.secure.dtos;
 
-import java.util.UUID;
-
 import org.springframework.beans.BeanUtils;
 
 import com.face.secure.model.UserModel;

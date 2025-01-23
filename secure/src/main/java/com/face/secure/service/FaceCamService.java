@@ -167,9 +167,14 @@ public class FaceCamService {
         faceRecognizer.read("E:/face.yml");
 
         Mat frame = new Mat();
-
+        long timelimit = 60000;
+        long startTime = System.currentTimeMillis();
         while (true) {
 
+            if (System.currentTimeMillis() - startTime > timelimit) {
+                System.out.println("Time limit.");
+                break;
+            }
             capture.read(frame);
             if (frame.empty()) {
                 throw new RuntimeException("Captured frame is empty");
