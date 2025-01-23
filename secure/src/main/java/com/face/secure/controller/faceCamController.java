@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 
 
@@ -21,16 +20,6 @@ public class faceCamController {
     @Autowired
     private FaceCamService faceCamService;
 
-
-    // @GetMapping("/faceCam")
-    // public String faceCam() throws IOException {
-        
-    //     if(faceCamService.()) {
-    //         return "Face detected";
-    //     }
-        
-    //     return "Face not detected";
-    // }
     @GetMapping("/faceCam")
     public String faceCam() throws IOException {
         if(faceCamService.detectFaces()){
@@ -55,12 +44,5 @@ public class faceCamController {
     public ResponseEntity<?> addNewData() {
         faceCamService.addNewDataToModel();
         return ResponseEntity.ok().build();
-    }
-    
-    
-
-
-
-    
-    
+    } 
 }

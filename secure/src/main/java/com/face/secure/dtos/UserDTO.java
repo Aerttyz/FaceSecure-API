@@ -8,17 +8,17 @@ import com.face.secure.model.UserModel;
 
 public class UserDTO {
 
-    private UUID id;
+    private long id;
 
     private String name;
 
     private float[] faceEmbeddings;
 
-    public UUID getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(long id) {
         this.id = id;
     }
 
