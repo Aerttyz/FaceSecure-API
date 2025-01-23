@@ -21,6 +21,7 @@ import org.opencv.videoio.VideoCapture;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class FaceCamService {
@@ -28,7 +29,7 @@ public class FaceCamService {
     private final CascadeClassifier faceDetector;
     @Autowired
     private UserService userService;
-    
+
 
     public FaceCamService() throws IOException {
         String cascadePath = new ClassPathResource("haarcascade_frontalface_default.xml").getFile().getAbsolutePath();
@@ -233,12 +234,19 @@ public class FaceCamService {
         return faceDetected;
     }
 
-    public String test() {
+    public String recognize(MultipartFile image) {
+        String pathImge;
         LBPHFaceRecognizer faceRecognizer = LBPHFaceRecognizer.create();
         faceRecognizer.read("E:/face.yml");
-
+        try{
+            pathImge = saveImage(image);
+        }catch(Exception e){
+            e.printStackTrace();
+            return "Erro ao salvar a imagem.";
+            
+        }
         // Testar o reconhecimento de uma nova imagem
-        Mat testImage = Imgcodecs.imread("E:/Photos-001/test13.png", Imgcodecs.IMREAD_GRAYSCALE);
+        Mat testImage = Imgcodecs.imread(pathImge, Imgcodecs.IMREAD_GRAYSCALE);
         if (!testImage.empty()) {
             int[] label = new int[1];
             double[] confidence = new double[1];
@@ -252,6 +260,19 @@ public class FaceCamService {
             }
         }
         return "Erro ao carregar a imagem de teste.";
+    }
+
+    private String saveImage(MultipartFile image) throws IllegalStateException, IOException{
+        
+        File file = new File("E:/test");
+        if(!file.exists()){
+            file.mkdir();
+        }
+        String fileName = image.getOriginalFilename();
+        File dest = new File(file, fileName);
+
+        image.transferTo(dest);
+        return dest.getAbsolutePath();
     }
 
     private void saveFrameForDebugging(Mat frame) {

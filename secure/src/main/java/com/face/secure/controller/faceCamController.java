@@ -1,6 +1,7 @@
 package com.face.secure.controller;
 
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.face.secure.service.FaceCamService;
 
@@ -8,8 +9,10 @@ import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.codec.multipart.MultipartHttpMessageReader;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 
 
@@ -35,9 +38,9 @@ public class faceCamController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/test")
-    public String test() {
-        return faceCamService.test();
+    @GetMapping("/recognize")
+    public String recognize(@RequestParam MultipartFile image) {
+        return faceCamService.recognize(image);
     }
 
     @GetMapping("/addNewData")
