@@ -34,7 +34,7 @@
             "request": "launch",
             "cwd": "${workspaceFolder}",
             "mainClass": "com.face.secure.FaceSecureApplication",
-            "vmArgs": "-Djava.library.path=D:/aa/bb/opencv/build/java/x64",
+            "vmArgs": "-Djava.library.path=D:/clonas/build/lib/Release",
             "projectName": "secure",
             "args": "",
             "envFile": "${workspaceFolder}/.env"

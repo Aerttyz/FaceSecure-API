@@ -27,7 +27,7 @@
         <url />
     </scm>
     <properties>
-        <java.version>23</java.version>
+        <java.version>17</java.version>
     </properties>
     <dependencies>
 
@@ -55,9 +55,11 @@
 
         <!-- Dependência para OpenCV -->
         <dependency>
-            <groupId>org.openpnp</groupId>
+            <groupId>org.opencv</groupId>
             <artifactId>opencv</artifactId>
-            <version>4.5.1-2</version>
+            <version>4.12.0-dev</version>
+            <scope>system</scope>
+            <systemPath>D:/clonas/build/bin/opencv-480.jar</systemPath>
         </dependency>
 
         <!-- Dependência para testes -->

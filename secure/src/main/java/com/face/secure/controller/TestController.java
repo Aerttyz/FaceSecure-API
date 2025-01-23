@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 @RestController
 public class TestController {
 
-    @GetMapping("/test")
-    public String getMethodName() {
-        return "Versão opencv: " + Core.VERSION;
-    }
+    // @GetMapping("/test")
+    // public String getMethodName() {
+    //     return "Versão opencv: " + Core.VERSION;
+    // }
     
 }
