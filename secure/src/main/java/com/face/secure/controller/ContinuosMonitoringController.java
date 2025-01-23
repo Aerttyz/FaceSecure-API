@@ -17,6 +17,7 @@ public class ContinuosMonitoringController {
 
     @GetMapping("/startMonitoring")
     public String startMonitoring(@RequestBody CtMonitoringDTO ctMonitoringDTO) {
+        
         if(continuousMonitoringService.startMonitoring(ctMonitoringDTO.getMinutes(), ctMonitoringDTO.getTimeLimit())){
             return "Still all time";
         }else{

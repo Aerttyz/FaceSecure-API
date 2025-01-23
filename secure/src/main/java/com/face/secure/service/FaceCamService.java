@@ -59,6 +59,18 @@ public class FaceCamService {
         for (File labelDir : labelDirs) {
             int label = Integer.parseInt(labelDir.getName());
             File[] imageFiles = labelDir.listFiles((dir, name) -> name.endsWith(".png"));
+            int maxLength = String.valueOf(imageFiles.length).length();
+            for (int i = 0; i < imageFiles.length; i++) {
+                File oldFile = imageFiles[i];
+                String newFileName = String.format("%s/%0" + maxLength + "d.png",
+                        labelDir.getAbsolutePath(), i + 1);
+                File newFile = new File(newFileName);
+
+                if (!oldFile.renameTo(newFile)) {
+                    System.err.println("Erro ao renomear arquivo: " + oldFile.getName());
+                }
+            }
+            imageFiles = labelDir.listFiles((dir, name) -> name.endsWith(".png"));
 
             for (File imageFile : imageFiles) {
                 Mat image = Imgcodecs.imread(imageFile.getAbsolutePath(), Imgcodecs.IMREAD_GRAYSCALE);
@@ -167,7 +179,7 @@ public class FaceCamService {
         faceRecognizer.read("E:/face.yml");
 
         Mat frame = new Mat();
-        long timelimit = 60000;
+        long timelimit = 59000;
         long startTime = System.currentTimeMillis();
         while (true) {
 
