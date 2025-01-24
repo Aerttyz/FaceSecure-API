@@ -69,7 +69,7 @@ API de reconhecimento facial com **Opencv** e modelos treinados a partir da bibl
 
 ## Configuração
 
-Algumas configurações no código precisam serem feitas para bom funcionamento
+Algumas configurações no código precisam ser feitas para bom funcionamento
 
 
 - ```Atualize diretórios:``` Algumas funções utilizam de diretórios para funcionamento, para garantir que funcionem procure por ```E:``` e substitua por diretórios da sua máquina;
