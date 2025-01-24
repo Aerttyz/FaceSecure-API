@@ -249,7 +249,7 @@ public class FaceCamService {
         faceRecognizer.read("E:/face.yml");
 
         Mat frame = new Mat();
-        long timelimit = 10000;
+        long timelimit = 59000;
         long startTime = System.currentTimeMillis();
         while (true) {
 
