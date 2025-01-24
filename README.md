@@ -15,14 +15,14 @@ API de reconhecimento facial com **Opencv** e modelos treinados a partir da bibl
 
 - Treinamento de modelos para reconhecimento facial
 - Reconhecimento facial a partir de foto
-- Reconhecimento facial a partir de WebCam
-- Monitoramente Contínuo 
+- Reconhecimento facial a partir da WebCam
+- Monitoramento Contínuo 
 
 ## Documentação da API
 
 ### Registra um usuário e cria seu diretório de imagens 
 
-- Posteriormente é necessário adicionar fotos a esse novo diretório para serem utilizadas no treinamento de modelo
+- Posteriormente, é necessário adicionar fotos a esse novo diretório para que sejam utilizadas no treinamento de modelo
 
 ```http
   POST /user/register
@@ -37,7 +37,7 @@ API de reconhecimento facial com **Opencv** e modelos treinados a partir da bibl
   GET /train
 ```
 
-#### Inicia atualização de modelo previamente treinado
+#### Inicia a atualização de modelo previamente treinado
 
 ```http
   GET /addNewData
@@ -49,7 +49,7 @@ API de reconhecimento facial com **Opencv** e modelos treinados a partir da bibl
   POST /recognize
 ```
 
-### Inicia o processo de reconhecimento facial utilizando da webcam
+### Inicia o processo de reconhecimento facial utilizando a webcam
 
 ```http
   GET /faceCam
@@ -69,10 +69,10 @@ API de reconhecimento facial com **Opencv** e modelos treinados a partir da bibl
 
 ## Configuração
 
-Algumas configurações no código precisam ser feitas para bom funcionamento
+Algumas configurações no código precisam ser feitas para o bom funcionamento
 
 
-- ```Atualize diretórios:``` Algumas funções utilizam de diretórios para funcionamento, para garantir que funcionem procure por ```E:``` e substitua por diretórios da sua máquina;
+- ```Atualize diretórios:``` Algumas funções utilizam de diretórios para funcionamento, para garantir que funcionem, procure por ```E:``` e substitua por diretórios da sua máquina;
 - Certifique-se de que o arquivo ```opencv_480.dll``` está sendo referenciado corretamente na sua compilação.
 
     
