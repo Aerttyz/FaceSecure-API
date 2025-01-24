@@ -3,13 +3,13 @@ package com.face.secure.controller;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.face.secure.dtos.DetectFacesDTO;
 import com.face.secure.service.FaceCamService;
 
 import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.codec.multipart.MultipartHttpMessageReader;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,12 +24,10 @@ public class faceCamController {
     private FaceCamService faceCamService;
 
     @GetMapping("/faceCam")
-    public String faceCam() throws IOException {
-        if(faceCamService.detectFaces()){
-            return "Face detected";
-        }else{
-            return "Face not detected";
-        }
+    public String faceCam(DetectFacesDTO detectFacesDTO) throws IOException {
+        DetectFacesDTO facesDTO = faceCamService.detectFaces(detectFacesDTO);
+        String response = "Face detectada:" + facesDTO.getName() + "confidence" + facesDTO.getConfidence();
+        return response;
     }
 
     @GetMapping("/train")
