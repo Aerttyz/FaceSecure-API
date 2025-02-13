@@ -109,4 +109,51 @@ public class ModelTrainingService {
         faceRecognizer.save("E:/lbph_model.yml");
     }
 
+    public void addNewDataToModel() {
+        LBPHFaceRecognizer faceRecognizer = LBPHFaceRecognizer.create();
+        //AQUI você deve adicionar o seu caminho para o modelo
+        faceRecognizer.read("E:/face.yml");
+
+        //AQUI você deve adicionar o seu caminho para o dataset
+        File dataset = new File("E:/dataset");
+        File[] labelDirs = dataset.listFiles(File::isDirectory);
+
+        List<Mat> images = new ArrayList<>();
+        List<Integer> labels = new ArrayList<>();
+
+        for (File labelDir : labelDirs) {
+            int label = Integer.parseInt(labelDir.getName());
+            File[] imageFiles = labelDir.listFiles((dir, name) -> name.endsWith(".png"));
+            int maxLength = String.valueOf(imageFiles.length).length();
+            for (int i = 0; i < imageFiles.length; i++) {
+                File oldFile = imageFiles[i];
+                String newFileName = String.format("%s/%0" + maxLength + "d.png",
+                        labelDir.getAbsolutePath(), i + 1);
+                File newFile = new File(newFileName);
+
+                if (!oldFile.renameTo(newFile)) {
+                    System.err.println("Erro ao renomear arquivo: " + oldFile.getName());
+                }
+            }
+            imageFiles = labelDir.listFiles((dir, name) -> name.endsWith(".png"));
+
+            for (File imageFile : imageFiles) {
+                Mat image = Imgcodecs.imread(imageFile.getAbsolutePath(), Imgcodecs.IMREAD_GRAYSCALE);
+                if (!image.empty()) {
+                    images.add(image);
+                    labels.add(label);
+                }
+            }
+        }
+
+        Mat labelsMat = new Mat(labels.size(), 1, CvType.CV_32SC1);
+        for (int i = 0; i < labels.size(); i++) {
+            labelsMat.put(i, 0, labels.get(i));
+        }
+
+        faceRecognizer.update(images, labelsMat);
+        
+        //AQUI você deve adicionar o seu caminho para o modelo
+        faceRecognizer.save("E:/face.yml");
+    }
 }
