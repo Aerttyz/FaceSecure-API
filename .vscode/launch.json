@@ -1,0 +1,50 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "SecureApplication",
+            "request": "launch",
+            "mainClass": "com.face.secure.SecureApplication",
+            "projectName": "secure"
+        },
+        {
+            "type": "java",
+            "name": "teste",
+            "request": "launch",
+            "mainClass": "com.face.secure.teste",
+            "projectName": "secure"
+        },
+        {
+            "type": "java",
+            "name": "OpenCVTest",
+            "request": "launch",
+            "mainClass": "com.face.secure.OpenCVTest",
+            "projectName": "secure"
+        },
+        {
+            "type": "java",
+            "name": "OpenCVTest",
+            "request": "launch",
+            "mainClass": "OpenCVTest",
+            "projectName": ""
+        },
+        {
+            "type": "java",
+            "name": "FaceRecognitionSystem",
+            "request": "launch",
+            "mainClass": "FaceRecognitionSystem",
+            "projectName": ""
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-FaceSecureApplication<secure>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.face.secure.FaceSecureApplication",
+            "vmArgs": "-Djava.library.path=D:/clonas/build/lib/Release",
+            "projectName": "secure",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
