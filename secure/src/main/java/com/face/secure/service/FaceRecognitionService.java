@@ -22,6 +22,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.face.secure.dtos.DetectFacesDTO;
+
 
 @Service
 public class FaceRecognitionService {
@@ -148,5 +150,75 @@ public class FaceRecognitionService {
         }
         capture.release();
         return faceDetected;
+    }
+
+    public DetectFacesDTO detectFaces(DetectFacesDTO detectFacesDTO) throws IOException {
+        boolean faceDetected = false;
+
+        VideoCapture capture = new VideoCapture(0);
+        if (!capture.isOpened()) {
+            System.out.println("Erro ao abrir a câmera.");
+            return null;
+        }
+
+        LBPHFaceRecognizer faceRecognizer = LBPHFaceRecognizer.create();
+        faceRecognizer.read("E:/face.yml");
+
+        Mat frame = new Mat();
+        long timelimit = 59000;
+        long startTime = System.currentTimeMillis();
+        while (true) {
+
+            if (System.currentTimeMillis() - startTime > timelimit) {
+                System.out.println("Time limit.");
+                break;
+            }
+            capture.read(frame);
+            if (frame.empty()) {
+                throw new RuntimeException("Captured frame is empty");
+            }
+            //saveFrameForDebugging(frame);
+            List<Mat> channels = new ArrayList<>();
+            Core.split(frame, channels);
+            Mat grayFrame = channels.get(0);
+            Imgproc.equalizeHist(grayFrame, grayFrame);
+            //saveFrameForDebugging(grayFrame);
+            MatOfRect faces = new MatOfRect();
+            faceDetector.detectMultiScale(grayFrame, faces, 1.1, 3, 0, new Size(30, 30), new Size());
+            
+            for (Rect face : faces.toArray()) {
+
+                Mat faceROI = new Mat(grayFrame, face);
+                
+
+                int[] label = new int[1];
+                double[] confidence = new double[1];
+                faceRecognizer.predict(faceROI, label, confidence);
+                String nome = userService.getNameByLabel(label[0]);
+                System.out.println("Predição: " + nome);
+                System.out.println("Confiança: " + confidence[0]);
+                if (confidence[0] < 55) {
+                    System.out.println("Face detectada: " + nome + " - Confidence " + confidence[0]);
+                    detectFacesDTO.setName(nome);
+                    detectFacesDTO.setConfidence(String.valueOf(confidence[0]));
+                    detectFacesDTO.setFaceDetected(true);
+                    faceDetected = true;
+                    break;
+                } else {
+                    System.out.println("Face não reconhecida.");
+                }
+            }
+            if (faceDetected) {
+                break;
+            }
+
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        capture.release();
+        return detectFacesDTO;
     }
 }
