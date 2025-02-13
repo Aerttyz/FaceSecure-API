@@ -18,5 +18,12 @@ public class ModelTrainingController {
         modelTrainingService.trainFaceRecognizer();
         return ResponseEntity.ok().build();
     }
+
+    
+    @GetMapping("/addNewData")
+    public ResponseEntity<?> addNewData() {
+        modelTrainingService.addNewDataToModel();
+        return ResponseEntity.ok().build();
+    } 
     
 }
