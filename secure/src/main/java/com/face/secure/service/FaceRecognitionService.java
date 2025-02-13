@@ -59,4 +59,14 @@ public class FaceRecognitionService {
         image.transferTo(dest);
         return dest.getAbsolutePath();
     }
+
+    private void saveFrameForDebugging(Mat frame) {
+        
+        String timestamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String fileName = "E:/frames/debug_frame_" + timestamp + ".png";
+
+        // Salvar o frame como imagem
+        Imgcodecs.imwrite(fileName, frame);
+        System.out.println("Frame salvo: " + fileName);
+    }
 }
